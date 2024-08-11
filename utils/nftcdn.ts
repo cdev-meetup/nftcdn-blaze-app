@@ -24,6 +24,7 @@ export async function getImgUrl(fingerprint: string, size: number = 256) {
 export async function getMetadataJson(fingerprint: string) {
   const metadataUrl = nftcdnUrl(fingerprint, "/metadata");
   const metadata = await fetch(metadataUrl);
+
   return await metadata.json();
 }
 
@@ -40,12 +41,15 @@ export async function getMetadataJson(fingerprint: string) {
 function nftcdnUrl(fingerprint: string, path: string, params: Record<string, any> = {}) {
   params.tk = "";
   let url = buildUrl(domain, fingerprint, path, params);
+
   // base64url codec requires Node.js >= 16, else 3rd party libraries can be used
   params.tk = createHmac("sha256", key).update(url).digest("base64url");
+
   return buildUrl(domain, fingerprint, path, params);
 }
 
 function buildUrl(domain: string, fingerprint: string, path: string, params: Record<string, any>) {
   const searchParams = new URLSearchParams(params);
+
   return `https://${fingerprint}.${domain}.nftcdn.io${path}?${searchParams.toString()}`;
 }

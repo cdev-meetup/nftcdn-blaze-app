@@ -30,8 +30,10 @@ export default function App() {
     const wallets = [];
 
     const { cardano } = window;
+
     for (const wallet in cardano) {
       const { apiVersion } = cardano[wallet];
+
       if (apiVersion) {
         wallets.push(cardano[wallet]);
       }
@@ -48,12 +50,15 @@ export default function App() {
     const wallet = new WebWallet(cip30);
 
     const blaze = await Blaze.from(provider, wallet);
+
     setBlaze(blaze);
 
     const assetFingerprints = [];
     const utxos = await blaze.wallet.getUnspentOutputs();
+
     for (const utxo of utxos) {
       const units = utxo.output().amount().multiasset()?.keys();
+
       if (!units) continue; // skip
 
       for (const unit of units) {
@@ -61,6 +66,7 @@ export default function App() {
         const assetName = Buffer.from(Core.AssetId.getAssetName(unit), "hex").valueOf();
 
         const fingerprint = AssetFingerprint.fromParts(policyID, assetName).fingerprint();
+
         assetFingerprints.push(fingerprint);
       }
     }
@@ -83,15 +89,15 @@ export default function App() {
     // }, [asset]);
 
     return (
-      <Card isFooterBlurred radius="lg" className="border-none">
+      <Card isFooterBlurred className="border-none" radius="lg">
         <Image src={imgURL} alt={props.fingerprint} width={200} height={200} className="object-cover" />
         <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
           <p className="text-tiny text-white/80">{asset?.name ?? "Loading..."}</p>
           <Button
             onClick={() => router.push(`https://preprod.cexplorer.io/asset/${props.fingerprint}`)}
             className="text-tiny text-white bg-black/20"
-            variant="flat"
             color="default"
+            variant="flat"
             radius="lg"
             size="sm"
           >
