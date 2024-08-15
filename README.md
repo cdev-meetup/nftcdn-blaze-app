@@ -5,6 +5,13 @@ This is an NFTCDN & Blaze workshop for CardanoDev Indonesia.
 - [NFTCDN](https://nftcdn.io/)
 - [Blaze](https://blaze.butane.dev/)
 
+## KuberIDE
+
+https://kuberide.com
+
+- [How to mint an NFT/Token](https://kuberide.com/kuber/docs/tutorials/minting)
+- [Attaching token metadata](https://kuberide.com/kuber/docs/tutorials/metadata#minting-an-nft-with-metadata)
+
 ## Technologies Used
 
 - [Next.js 14](https://nextjs.org/docs/getting-started)
